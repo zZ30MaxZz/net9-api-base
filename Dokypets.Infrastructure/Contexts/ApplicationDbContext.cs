@@ -10,6 +10,20 @@ namespace Dokypets.Infrastructure.Contexts
     {
         public ApplicationDbContext([NotNull] DbContextOptions<ApplicationDbContext> options) : base(options) { }
 
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            base.OnModelCreating(builder);
+
+            builder.Entity<ApplicationUserToken>()
+                .ToTable("AspNetUserTokens")
+                .Property(t => t.ExpiryDate)
+                .IsRequired();
+
+            builder.Entity<ApplicationUserToken>()
+                .Property(t => t.IsRevoked)
+                .HasDefaultValue(false);
+        }
+
         public DbSet<Customer> Customers { get; set; }
     }
 }
