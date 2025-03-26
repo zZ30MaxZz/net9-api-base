@@ -19,6 +19,7 @@
 	</ItemGroup>
 	<ItemGroup>
 		<ProjectReference Include="..\Dokypets.Application.Interface\Dokypets.Application.Interface.csproj" />
+		<ProjectReference Include="..\Dokypets.Common\Dokypets.Common.csproj" />
 	</ItemGroup>
 
 </Project>

@@ -4,6 +4,7 @@ using Dokypets.Application.UseCases.Customers.Commands.FilterWithPaginationCusto
 using Dokypets.Application.UseCases.Customers.Commands.UpdateCustomerCommand;
 using Dokypets.Application.UseCases.Customers.Queries.GetAllCustomerQuery;
 using Dokypets.Application.UseCases.Customers.Queries.GetByIdCustomerQuery;
+using Dokypets.Common.Enums;
 using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
@@ -22,8 +23,8 @@ namespace Dokypets.Api.Controllers.V1
             _mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
         }
 
-        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "Admin")]
         [HttpGet("GetAll")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "SuperAdmin,User")]
         public async Task<IActionResult> GetAllAsync()
         {
             var response = await _mediator.Send(new GetAllCustomerQuery());

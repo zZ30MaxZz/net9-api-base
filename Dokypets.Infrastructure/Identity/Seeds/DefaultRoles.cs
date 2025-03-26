@@ -1,4 +1,4 @@
-﻿using Dokypets.Infrastructure.Identity.Enums;
+﻿using Dokypets.Common.Enums;
 using Microsoft.AspNetCore.Identity;
 
 namespace Dokypets.Infrastructure.Identity.Seeds

@@ -1,4 +1,4 @@
-﻿namespace Dokypets.Infrastructure.Identity.Enums
+﻿namespace Dokypets.Common.Enums
 {
     public enum Roles
     {

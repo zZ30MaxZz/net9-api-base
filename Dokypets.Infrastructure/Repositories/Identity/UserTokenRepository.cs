@@ -1,5 +1,4 @@
-﻿using Dokypets.Application.Interface.Persistence;
-using Dokypets.Application.Interface.Persistence.Identity;
+﻿using Dokypets.Application.Interface.Persistence.Identity;
 using Dokypets.Domain.Entities.Identity;
 using Dokypets.Infrastructure.Contexts;
 using Microsoft.EntityFrameworkCore;

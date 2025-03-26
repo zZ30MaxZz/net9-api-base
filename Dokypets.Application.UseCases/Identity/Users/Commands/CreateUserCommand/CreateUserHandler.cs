@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Dokypets.Application.Interface.Persistence;
 using Dokypets.Application.UseCases.Commons.Bases;
+using Dokypets.Common.Enums;
 using Dokypets.Domain.Entities.Identity;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
@@ -62,6 +63,8 @@ namespace Dokypets.Application.UseCases.Identity.Users.Commands.CreateUserComman
 
                 if (response.Data)
                 {
+                    await _userManager.AddToRoleAsync(user, Roles.User.ToString());
+
                     response.succcess = true;
                     response.Message = "Create succeed!";
                 }
