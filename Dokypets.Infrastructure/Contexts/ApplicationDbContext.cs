@@ -24,6 +24,11 @@ namespace Dokypets.Infrastructure.Contexts
                 .HasDefaultValue(false);
         }
 
+
+        #region
+        public DbSet<ApplicationUserToken> UserTokens { get; set; }
+        #endregion
+
         public DbSet<Customer> Customers { get; set; }
     }
 }

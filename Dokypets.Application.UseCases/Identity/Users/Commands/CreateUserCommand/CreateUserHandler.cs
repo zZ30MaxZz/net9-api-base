@@ -41,14 +41,21 @@ namespace Dokypets.Application.UseCases.Identity.Users.Commands.CreateUserComman
                     return response;
                 }
 
-
                 var user = new ApplicationUser
                 {
                     UserName = command.UserName,
                     Email = command.Email,
-                    Address = command.Address,
-                    UrlPhoto = command.UrlPhoto
+                    Address = command.Address ?? string.Empty,
+                    UrlPhoto = command.UrlPhoto ?? string.Empty,
+                    FirstName = command.UserName ?? "Default",
+                    LastName = command.LastName ?? "Default",
+                    EmailConfirmed = false,
+                    PhoneNumberConfirmed = false,
+                    TwoFactorEnabled = false,
+                    LockoutEnabled = false,
+                    AccessFailedCount = 0
                 };
+
                 var responseIdentity = await _userManager.CreateAsync(user, command.Password);
 
                 response.Data = responseIdentity.Succeeded;

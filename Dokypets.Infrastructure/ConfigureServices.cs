@@ -4,6 +4,8 @@ using Dokypets.Infrastructure.Repositories;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using Dokypets.Application.Interface.Persistence.Identity;
+using Dokypets.Infrastructure.Repositories.Identity;
 
 namespace Dokypets.Infrastructure
 {
@@ -18,8 +20,13 @@ namespace Dokypets.Infrastructure
             services.AddHealthChecks()
                 .AddDbContextCheck<ApplicationDbContext>();
 
-            services.AddScoped<ICustomerRepository, CustomerRepository>();
+            #region
             services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IUserTokenRepository, UserTokenRepository>();
+            #endregion
+
+
+            services.AddScoped<ICustomerRepository, CustomerRepository>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
 
             return services;

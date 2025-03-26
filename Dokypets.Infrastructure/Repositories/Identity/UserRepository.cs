@@ -1,9 +1,9 @@
-﻿using Dokypets.Application.Interface.Persistence;
+﻿using Dokypets.Application.Interface.Persistence.Identity;
 using Dokypets.Domain.Entities.Identity;
 using Dokypets.Infrastructure.Contexts;
 using Microsoft.EntityFrameworkCore;
 
-namespace Dokypets.Infrastructure.Repositories
+namespace Dokypets.Infrastructure.Repositories.Identity
 {
     public class UserRepository : IUserRepository
     {

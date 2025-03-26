@@ -58,13 +58,49 @@ namespace Dokypets.Application.UseCases.Identity.Users.Commands.LoginCommand
                     var roles = await _userManager.GetRolesAsync(user!);
 
                     var jwtSecurityToken = await CreateJwtAsync(user);
+                    var refreshToken = Guid.NewGuid().ToString();
+
+                    var token = await _userManager.GetAuthenticationTokenAsync(
+                        user,
+                        "Dokypets",
+                        "RefreshToken");
+
+                    if (token != null)
+                    {
+                        var userToken = await _unitOfWork.UserTokens.GetAsync(Guid.Parse(user.Id));
+
+                        userToken.Value = refreshToken;
+
+                        var updateUserToken = await _unitOfWork.UserTokens.UpdateAsync(userToken);
+                    }
+                    else
+                    {
+                        var userToken = new ApplicationUserToken
+                        {
+                            UserId = user.Id,
+                            LoginProvider = "Dokypets",
+                            Name = "RefreshToken",
+                            Value = refreshToken,
+                            ExpiryDate = DateTime.UtcNow.AddDays(_Jwt.RefreshTokenExpiresOnDays),
+                            IsRevoked = false
+                        };
+
+                        var createdUserToken = await _unitOfWork.UserTokens.InsertAsync(userToken);
+
+                        if (!createdUserToken)
+                        {
+                            response.Message = "Refresh token not created";
+
+                            return response;
+                        }
+                    }
 
                     response.Data.Email = user.Email;
                     response.Data.Roles = roles.ToList();
                     response.Data.UserName = user.UserName;
                     response.Data.Token = new JwtSecurityTokenHandler().WriteToken(jwtSecurityToken);
                     response.Data.TokenExpiresOn = jwtSecurityToken.ValidTo.ToLocalTime();
-                    response.Data.RefreshToken = Guid.NewGuid();
+                    response.Data.RefreshToken = Guid.Parse(refreshToken);
 
                     response.succcess = true;
                     response.Message = "Logged!";

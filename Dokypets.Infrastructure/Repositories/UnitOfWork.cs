@@ -1,5 +1,6 @@
 ﻿
 using Dokypets.Application.Interface.Persistence;
+using Dokypets.Application.Interface.Persistence.Identity;
 
 namespace Dokypets.Infrastructure.Repositories
 {
@@ -9,10 +10,13 @@ namespace Dokypets.Infrastructure.Repositories
 
         public ICustomerRepository Customers { get; }
 
-        public UnitOfWork(IUserRepository users, ICustomerRepository customers)
+        public IUserTokenRepository UserTokens { get; }
+
+        public UnitOfWork(IUserRepository users, ICustomerRepository customers, IUserTokenRepository userTokens)
         {
             Users = users ?? throw new ArgumentNullException(nameof(users));
             Customers = customers ?? throw new ArgumentNullException(nameof(customers));
+            UserTokens = userTokens ?? throw new ArgumentNullException(nameof(userTokens));
         }
 
         public void Dispose()

@@ -10,5 +10,6 @@ namespace Dokypets.Application.UseCases.Identity.Users.Commands.CreateUserComman
         public string? Password { get; set; }
         public string? Address { get; set; }
         public string? UrlPhoto { get; set; }
+        public string? LastName { get; internal set; }
     }
 }
